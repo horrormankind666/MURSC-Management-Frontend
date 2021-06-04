@@ -1,1 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+=============================================
+Author      : <ยุทธภูมิ ตวันนา>
+Create date : <๓๑/๐๕/๒๕๖๔>
+Modify date : <๓๑/๐๕/๒๕๖๔>
+Description : <>
+=============================================
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Pridi');
+
+#unsupported {
+    display: none;
+}
+
+#unsupported strong {
+    font-weight: 400;
+    color: #000000;
+}
+
+#unsupported .card-custom {
+    position: relative;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+
+#unsupported .card-custom .card-body {
+    padding: 1rem 1rem;
+}
+
+#unsupported .card-custom .card-title {
+    font-family: 'Pridi', sans-serif;
+    font-weight: bold;
+    font-size: 26px;
+    margin-bottom: 1rem;
+}
+
+#unsupported .card-custom .card-subtitle {
+    font-family: 'Pridi', sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #6C757D;}
