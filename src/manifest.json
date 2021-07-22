@@ -1,6 +1,6 @@
 {
-    "name": "MURSC Management System",
-    "short_name": "MGMT",
+    "name": "RSCmgmt",
+    "short_name": "RSCmgmt",
     "theme_color": "#1976D2",
     "background_color": "#FAFAFA",
     "display": "standalone",

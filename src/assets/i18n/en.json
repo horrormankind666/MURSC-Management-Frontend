@@ -1,0 +1,22 @@
+{
+    "systemName": {
+        "label": "MURSC Management System"
+    },
+    "signin": {
+        "label": "Sign in"
+    },
+    "signout": {
+        "label": "Sign out",
+        "confirm": {
+          "label": "Confirm your would like to sign out."
+        }
+    },
+    "menu": {
+        "manageUser": {
+          "label": "Manage users"
+        },
+        "manageReceipt": {
+          "label": "Manage receipts"
+        }
+    }
+}

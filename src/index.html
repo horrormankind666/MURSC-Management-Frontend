@@ -1,17 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
-    <title>MURSC Management System</title>
-    <base href="/Management">
+    <title></title>
+    <base href="/">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="theme-color" content="#1976D2">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MURSC Management System" />
+    <meta name="theme-color" content="#1976D2" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="format-detection" content="telephone=no" />
     <link href="mu-favicon.png" rel="shortcut icon" type="image/x-icon" />
     <link href="manifest.json" rel="manifest" >
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Pridi&family=Oswald&display=swap" rel="stylesheet">
 </head>
+<style>
+    #unsupported {
+        display: none;
+    }
+
+    #unsupported strong {
+        font-weight: 400;
+        color: #000000;
+    }
+
+    #unsupported .card-custom {
+        position: relative;
+        min-width: 0;
+        word-wrap: break-word;
+        text-align: center;
+    }
+
+    #unsupported .card-custom .card-body {
+        padding: 1rem 1rem;
+    }
+
+    #unsupported .card-custom .card-title {
+        font-family: 'Pridi';
+        font-weight: bold;
+        font-size: 26px;
+        margin-bottom: 1rem;
+    }
+
+    #unsupported .card-custom .card-subtitle {
+        font-family: 'Pridi';
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #6C757D;
+    }
+</style>
 <body>
     <app-root></app-root>
     <div id="unsupported">
@@ -28,10 +68,20 @@
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('DOMContentLoaded', function() {
         var body = document.getElementsByTagName("app-root")[0];
+        var isBrowserSupport = true;
+        var userAgent = navigator.userAgent;
+        var platform = navigator.platform;
+        var isEdge = (userAgent.indexOf('Edge') > -1);
+        var isIE = (typeof document !== 'undefined' && !!document.documentMode && !isEdge);
+        var isSafari = (/^((?!chrome|android).)*safari/i.test(userAgent));
+        var isWindow = (platform.indexOf('Win') > -1)
 
-        if (!body.hasAttribute("ng-version"))
+        if (isIE || (isSafari && isWindow))
+            isBrowserSupport = false;
+
+        if (!body.hasAttribute("ng-version") || !isBrowserSupport)
             document.getElementById("unsupported").style.display = "block";
     }, false);
 </script>

@@ -1,0 +1,406 @@
+/*
+=============================================
+Author      : <ยุทธภูมิ ตวันนา>
+Create date : <๐๓/๐๗/๒๕๖๔>
+Modify date : <๒๒/๐๗/๒๕๖๔>
+Description : <>
+=============================================
+*/
+
+@import '../variables.scss';
+
+$imagePath: ('../' + $imagePath);
+
+.p-component-overlay.p-sidebar-mask {
+    display: none;
+    z-index: 10048;
+}
+
+.sidebar-menu-active .sidebar-menu {
+    margin-left: 0;
+}
+
+.sidebar-menu-inactive .sidebar-menu {
+    margin-left: #{0 - $sidebarMaxWidth};
+}
+
+.sidebar-menu-active footer .footer {
+    margin-left: $sidebarMaxWidth;
+}
+
+.sidebar-menu-inactive footer .footer {
+    margin-left: 0;
+}
+
+.owner-logo,
+.systemname-logo,
+.muit-logo {
+    background-image: url($imagePath + '/label.png');
+}
+
+.owner-logo.th {
+    background-position: 0 0;
+}
+
+.owner-logo.en {
+    background-position: 0 -70px;
+}
+
+.systemname-logo {
+    background-position: -223px 0;
+}
+
+.muit-logo {
+    background-position: -223px -140px;
+}
+
+.copyright i {
+    position: relative;
+    top: 1px;
+}
+
+header .topbar {
+    width: 100%;
+    min-width: $screenMinWidth;
+    height: $headerMaxHeight;
+    background-color: var(--surface-0);
+    display: table;
+    table-layout: fixed;
+    position: fixed;
+    z-index: 10050;
+    transition: background 0.3s linear 0s;
+}
+
+header .topbar-items {
+    padding-left: 0;
+    list-style-type: none;
+    float: right;
+}
+
+header .topbar-items > li {
+    float: right;
+    position: relative;
+    margin-left: 14px;
+}
+
+header .topbar-items .flags-icon {
+    margin-top: 7px;
+}
+
+header .topbar-items .flags-icon i {
+    border-radius: 0.2rem;
+    font-size: $fontSize18;
+}
+
+header .topbar-items .signin-btn {
+    width: 85px;
+    height: 36px;
+    padding: 0;
+    margin-top: 1px;
+    border-width: 2px;
+    border-radius: 1rem;
+}
+
+header .topbar-items .user-info {
+    margin-top: 1px;
+}
+
+header .topbar-items .user-info p-avatar ::ng-deep .p-avatar {
+    width: 36px;
+    height: 36px;
+    background-color: $colorMU;
+    border: 2px solid var(--surface-0);
+    padding: 0;
+    font-weight: $fontWeightSemibold;
+    font-size: $fontSize18;
+    color: var(--surface-0);
+    cursor: pointer;
+}
+
+header .topbar-items .user-info p-avatar ::ng-deep .p-avatar .p-avatar-text {
+    position: relative;
+    top: -1px;
+}
+
+header .topbar-items .user-info p-overlaypanel ::ng-deep .p-overlaypanel {
+    width: 293px;
+    background-color: var(--surface-900);
+    border-radius: 0.75rem;
+    top: 30px !important;
+    left: -16.2rem !important;
+}
+
+header .topbar-items .user-info p-overlaypanel ::ng-deep .p-overlaypanel .p-overlaypanel-content {
+    padding: 0;
+}
+
+header .topbar-items .user-info p-overlaypanel ::ng-deep .p-overlaypanel::before,
+header .topbar-items .user-info p-overlaypanel ::ng-deep .p-overlaypanel::after {
+    display: none;
+}
+
+header .topbar-items .user-info p-overlaypanel p-avatar ::ng-deep .p-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: $fontSize48;
+}
+
+header .topbar-items .user-info p-overlaypanel p-divider ::ng-deep .p-divider.p-divider-horizontal::before {
+    border-top-color: var(--surface-800);
+}
+
+header .topbar-items .user-info p-overlaypanel p-divider ::ng-deep .p-divider.p-divider-horizontal {
+    padding: 0;
+    margin: 0;
+}
+
+header .topbar-items .user-info p-overlaypanel .btn-signout {
+    height: 50px;
+    min-height: 50px;
+    border-radius: 0.75rem !important;
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}
+
+header .topbar-items .user-info p-overlaypanel .btn-signout:enabled:hover {
+    background-color: var(--surface-800);
+}
+
+header .topbar .topbar-background {
+    width: 114px;
+    height: 100%;
+    background-image: url($imagePath + '/header-background.png');
+    background-position: bottom right;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+header .topbar .topbar-left {
+    width: 260px;
+    height: 100%;
+    background-color: $colorMU;
+    padding-left: 0.75rem;
+    display: table-cell;
+    transition: width 0.3s;
+}
+
+header .topbar .topbar-left .owner-logo {
+    width: 223px;
+    height: 100%;
+}
+
+header .topbar .topbar-right {
+    width: 100%;
+    height: 100%;
+    padding-right: 0.75rem;
+    padding-left: 2rem;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+header .topbar .topbar-right .sidebar-menu-btn {
+    width: 36px;
+    height: 36px;
+    background-color: $colorMU;
+    border: 2px solid var(--surface-0);
+    outline: none;
+    padding: 0;
+    display: block;
+    position: absolute;
+    top: 17px;
+    left: 242px;
+}
+
+header .topbar .topbar-right .systemname-logo {
+    width: 325px;
+    height: 100%;
+    float: left;
+}
+
+.sidebar-menu {
+    width: $sidebarMaxWidth;
+    height: 100%;
+    background: $colorMU;
+    padding-top: $headerMaxHeight;
+    overflow: hidden;
+    position: fixed;
+    z-index: 10049;
+    transition: margin-left 0.3s, width 0.3s;
+}
+
+.sidebar-menu p-scrollpanel ::ng-deep .p-scrollpanel {
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar-menu p-scrollpanel ::ng-deep .p-scrollpanel .p-scrollpanel-wrapper .p-scrollpanel-content {
+    padding-right: 13px;
+    padding-bottom: 13px;
+    overflow: scroll;
+}
+
+.sidebar-menu p-scrollpanel ::ng-deep .p-scrollpanel .p-scrollpanel-bar {
+    background-color: rgba(0, 48, 113, 0.9);
+    border: 0;
+    border-radius: 4px;
+}
+
+.sidebar-menu p-scrollpanel ::ng-deep .p-scrollpanel:active .p-scrollpanel-bar,
+.sidebar-menu p-scrollpanel ::ng-deep .p-scrollpanel:hover .p-scrollpanel-bar {
+    opacity: 0;
+}
+
+.sidebar-menu .p-menu {
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.sidebar-menu .p-menu .p-menuitem-link {
+    height: 46px;
+    color: var(--surface-0) !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar-menu .p-menu .p-menuitem-link .p-menuitem-icon {
+    width: 30px;
+    color: var(--surface-0) !important;
+    margin-right: 0;
+}
+
+.sidebar-menu .p-menu .p-menuitem-link .p-menuitem-text {
+    color: var(--surface-0) !important;
+}
+
+.sidebar-menu .p-menu .p-menuitem-link:not(.p-disabled):hover,
+.sidebar-menu .p-menu .p-menuitem-link:active {
+    border-top-left-radius: 0;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 50px;
+}
+
+.sidebar-menu .p-menu .p-menuitem-link:not(.p-disabled):hover {
+    background-color: rgba(0, 48, 113, 0.3);
+}
+
+.sidebar-menu .p-menu .p-menuitem-link:focus {
+    box-shadow: none;
+}
+
+footer {
+    width: 100%;
+    min-width: $screenMinWidth;
+    height: $footerMaxHeight;
+    position: absolute;
+    bottom: 0;
+}
+
+footer .footer {
+    height: 100%;
+    background-color: var(--surface-0);
+    padding-right: 0.75rem;
+    padding-left: 1rem;
+    display: block;
+    overflow: hidden;
+    transition: margin-left 0.3s ease 0s;
+}
+
+footer .footer .copyright {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    float: left;
+}
+
+footer .footer .muit-logo {
+    width: 55px;
+    height: 100%;
+    position: absolute;
+    right: 8px;
+    float: right;
+}
+
+@media screen and (max-width: 782px) {
+    .sidebar-menu-active .p-component-overlay.p-sidebar-mask {
+        display: block;
+    }
+
+    .systemname-logo {
+        background-position: -223px -70px;
+    }
+
+    header .topbar {
+        background-color: $colorMU !important;
+    }
+
+    header .topbar-items .signin-btn {
+        color: var(--surface-0);
+    }
+
+    header .topbar .topbar-left {
+        width: 36px;
+    }
+
+    header .topbar .topbar-left .owner-logo {
+        display: none;
+    }
+
+    header .topbar .topbar-right {
+        padding-left: 0.65rem !important;
+    }
+
+    header .topbar .topbar-right .sidebar-menu-btn {
+        width: 24px;
+        height: 24px;
+        background-color: transparent;
+        border: 0;
+        border-radius: 0;
+        top: 23px;
+        left: 0.75rem;
+    }
+
+    header .topbar .topbar-right .sidebar-menu-btn i {
+        font-size: 1.55rem;
+    }
+
+    .sidebar-menu {
+        position: absolute;
+    }
+
+    footer .footer {
+        margin-left: 0 !important;
+    }
+}
+
+@media screen and (max-width: 542px) {
+    .sidebar-menu-inactive .sidebar-menu {
+        width: 0;
+        margin-left: #{0 - 100%};
+    }
+
+    .systemname-logo.th {
+        background-position: 0 -280px;
+    }
+
+    .systemname-logo.en {
+        background-position: 0 -350px;
+    }
+
+    header .topbar .topbar-right .systemname-logo {
+        width: 155px;
+    }
+
+    .sidebar-menu {
+        width: 100%;
+    }
+}

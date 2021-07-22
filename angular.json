@@ -35,7 +35,13 @@
                             "src/manifest.json"
                         ],
                         "styles": [
-                            "src/styles.scss"
+                            "src/styles.scss",
+                            "node_modules/primeng/resources/themes/saga-blue/theme.css",
+                            "node_modules/primeng/resources/primeng.css",
+                            "node_modules/primeflex/primeflex.css",
+                            "node_modules/flag-icon-css/css/flag-icon.css",
+                            "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+                            "node_modules/@fortawesome/fontawesome-free/scss/solid.scss"
                         ],
                         "scripts": [],
                         "serviceWorker": true,
