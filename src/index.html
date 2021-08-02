@@ -65,24 +65,44 @@
             </div>
         </div>
     </div>
-  <noscript>Please enable JavaScript to continue using this application.</noscript>
+    <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 <script type="text/javascript">
     window.addEventListener('DOMContentLoaded', function() {
-        var body = document.getElementsByTagName("app-root")[0];
+        var body = document.getElementsByTagName('app-root')[0];
         var isBrowserSupport = true;
         var userAgent = navigator.userAgent;
         var platform = navigator.platform;
         var isEdge = (userAgent.indexOf('Edge') > -1);
         var isIE = (typeof document !== 'undefined' && !!document.documentMode && !isEdge);
         var isSafari = (/^((?!chrome|android).)*safari/i.test(userAgent));
+        var isOpera = ((userAgent.indexOf("Opera") > -1) || (userAgent.indexOf('OPR') > -1));
         var isWindow = (platform.indexOf('Win') > -1)
+        var isTablet = false;
+        var isMobile = false;
 
-        if (isIE || (isSafari && isWindow))
+        if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(userAgent))
+            isTablet = true;
+
+        if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(userAgent))
+            isMobile = true;
+
+
+        if (isIE || (isSafari && isWindow)) {
             isBrowserSupport = false;
 
-        if (!body.hasAttribute("ng-version") || !isBrowserSupport)
-            document.getElementById("unsupported").style.display = "block";
+            if (isSafari && isWindow && (isTablet || isMobile))
+                isBrowserSupport = true;
+        }
+
+        if (isTablet || isMobile)
+            document.getElementsByTagName('body')[0].classList.add('mobile');
+
+        if (isOpera)
+            document.getElementsByTagName('body')[0].classList.add('opera');
+
+        if (!body.hasAttribute('ng-version') || !isBrowserSupport)
+            document.getElementById('unsupported').style.display = 'block';
     }, false);
 </script>
 </html>

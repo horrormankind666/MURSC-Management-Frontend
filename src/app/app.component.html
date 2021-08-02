@@ -1,11 +1,9 @@
-<!--
 <ngx-loading [show]="appService.preload.isShow"></ngx-loading>
-<span class="preload font-regular size16" *ngIf="appService.preload.isShow">
+<span class="preload p-text-normal" *ngIf="appService.preload.isShow">
   <span *ngIf="appService.preload.isPage || appService.preload.isModal">Loading...</span>
   <span *ngIf="appService.preload.isCheck">Checking...</span>
   <span *ngIf="appService.preload.isSave">Saving...</span>
 </span>
--->
 <div class="p-col-12 p-p-0"
     [ngClass]="{
         'sidebar-menu-active': isActiveSidebarMenu,
@@ -29,7 +27,7 @@
                 <ul class="topbar-items">
                     <li>
                         <button pButton type="button" label="" class="signin-btn p-button-outlined p-button-secondary"  *ngIf="!authService.isAuthenticated">
-                            <span>{{'signin.label' | translate | titlecase}}</span>
+                            <span>{{ 'signin.label' | translate | titlecase }}</span>
                         </button>
                         <div class="user-info" *ngIf="authService.isAuthenticated">
                             <p-avatar label="YT" shape="circle" [style]="{ 'background-color': userBackgrondColor }" styleClass="user-avatar" (click)="profile.toggle($event)"></p-avatar>
@@ -44,7 +42,7 @@
                                     </div>
                                     <p-divider></p-divider>
                                     <button pButton type="button" label="" class="btn-signout p-button-text p-button-plain p-col-12">
-                                        <span>{{'signout.label' | translate | titlecase}}</span>
+                                        <span>{{ 'signout.label' | translate | titlecase }}</span>
                                     </button>
                                 </ng-template>
                             </p-overlayPanel>
@@ -52,10 +50,10 @@
                     </li>
                     <li>
                         <div class="flags-icon">
-                            <a href="javascript:void(0)" title="..." *ngIf="appService.lang === 'en'" (click)="appService.setDefaultLang('th')">
+                            <a href="javascript:void(0)" *ngIf="appService.lang === 'en'" (click)="appService.setDefaultLang('th')">
                                 <i class="flag-icon flag-icon-th" aria-hidden="true"></i>
                             </a>
-                            <a href="javascript:void(0)" title="..." *ngIf="appService.lang === 'th'" (click)="appService.setDefaultLang('en')">
+                            <a href="javascript:void(0)" *ngIf="appService.lang === 'th'" (click)="appService.setDefaultLang('en')">
                                 <i class="flag-icon flag-icon-gb" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -68,17 +66,31 @@
         <p-scrollPanel #sidebarMenu>
             <div class="p-menu p-component">
                 <ul class="p-menu-list p-reset">
-                    <li class="p-menuitem">
-                        <a role="menuitem" class="p-menuitem-link" tabindex="0">
-                            <span class="p-menuitem-icon fas fa-user-cog"></span>
-                            <span class="p-menuitem-text">{{'menu.manageUser.label' | translate | titlecase}}</span>
+                    <li *ngFor="let item of appService.menuItems"
+                        [ngClass]="{
+                            'p-menuitem': !item.items,
+                            'p-submenu': item.items,
+                            'p-hidden': !item.visible
+                        }">
+                        <a class="p-menuitem-link" role="menuitem" tabindex="0" *ngIf="!item.items">
+                            <span class="p-menuitem-icon {{ item.icon }}"></span>
+                            <span class="p-menuitem-text">{{ (item.label + '') | translate | titlecase }}</span>
                         </a>
-                    </li>
-                    <li class="p-menuitem">
-                        <a role="menuitem" class="p-menuitem-link" tabindex="0">
-                            <span class="p-menuitem-icon fas fa-file-invoice"></span>
-                            <span class="p-menuitem-text">{{'menu.manageReceipt.label' | translate | titlecase}}</span>
-                        </a>
+                        <p-accordion *ngIf="item.items" expandIcon="fas fa-angle-down" collapseIcon="fas fa-angle-up" styleClass="{{ item.id }}">
+                            <p-accordionTab header="{{ (item.label + '') | translate | titlecase }}" [selected]="true">
+                                <ul class="p-menu-list p-reset">
+                                    <li class="p-menuitem" *ngFor="let subitem of item.items"
+                                        [ngClass]="{
+                                            'p-hidden': !subitem.visible
+                                        }">
+                                        <a class="p-menuitem-link" role="menuitem" tabindex="0">
+                                            <span class="p-menuitem-icon {{ subitem.icon }}"></span>
+                                            <span class="p-menuitem-text">{{ (subitem.label + '') | translate | titlecase }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </p-accordionTab>
+                        </p-accordion>
                     </li>
                 </ul>
             </div>
@@ -94,8 +106,7 @@
                 <span *ngIf="appService.lang === 'th'"><i class="fas fa-copyright" aria-hidden="true"></i> สงวนลิขสิทธิ์ พ.ศ.2564{{ (today.getFullYear() + 543) > 2564 ? (' - ' + (today.getFullYear() + 543)) : '' }} มหาวิทยาลัยมหิดล</span>
                 <span *ngIf="appService.lang === 'en'">Copyright <i class="fas fa-copyright" aria-hidden="true"></i> 2021{{ today.getFullYear() > 2021 ? (' - ' + today.getFullYear()) : '' }} Mahidol University.</span>
             </div>
-            <div #muitLogo class="muit-logo">
-            </div>
+            <div #muitLogo class="muit-logo"></div>
         </div>
     </footer>
 </div>

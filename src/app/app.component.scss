@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๐๓/๐๗/๒๕๖๔>
-Modify date : <๒๒/๐๗/๒๕๖๔>
+Modify date : <๒๙/๐๗/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -13,7 +13,7 @@ $imagePath: ('../' + $imagePath);
 
 .p-component-overlay.p-sidebar-mask {
     display: none;
-    z-index: 10048;
+    z-index: 1000;
 }
 
 .sidebar-menu-active .sidebar-menu {
@@ -80,7 +80,7 @@ header .topbar-items {
 header .topbar-items > li {
     float: right;
     position: relative;
-    margin-left: 14px;
+    margin-left: 8px;
 }
 
 header .topbar-items .flags-icon {
@@ -88,8 +88,8 @@ header .topbar-items .flags-icon {
 }
 
 header .topbar-items .flags-icon i {
-    border-radius: 0.2rem;
     font-size: $fontSize18;
+    border-radius: 0.2rem;
 }
 
 header .topbar-items .signin-btn {
@@ -108,12 +108,12 @@ header .topbar-items .user-info {
 header .topbar-items .user-info p-avatar ::ng-deep .p-avatar {
     width: 36px;
     height: 36px;
-    background-color: $colorMU;
-    border: 2px solid var(--surface-0);
-    padding: 0;
     font-weight: $fontWeightSemibold;
     font-size: $fontSize18;
     color: var(--surface-0);
+    background-color: $colorMU;
+    border: 2px solid var(--surface-0);
+    padding: 0;
     cursor: pointer;
 }
 
@@ -227,7 +227,7 @@ header .topbar .topbar-right .systemname-logo {
     padding-top: $headerMaxHeight;
     overflow: hidden;
     position: fixed;
-    z-index: 10049;
+    z-index: 1001;
     transition: margin-left 0.3s, width 0.3s;
 }
 
@@ -237,8 +237,8 @@ header .topbar .topbar-right .systemname-logo {
 }
 
 .sidebar-menu p-scrollpanel ::ng-deep .p-scrollpanel .p-scrollpanel-wrapper .p-scrollpanel-content {
-    padding-right: 13px;
-    padding-bottom: 13px;
+    padding-right: 0;
+    padding-bottom: 0;
     overflow: scroll;
 }
 
@@ -261,10 +261,12 @@ header .topbar .topbar-right .systemname-logo {
     padding-bottom: 0;
 }
 
-.sidebar-menu .p-menu .p-menuitem-link {
+.sidebar-menu .p-menu .p-menuitem-link,
+.sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-header .p-accordion-header-link {
     height: 46px;
     color: var(--surface-0) !important;
     padding-top: 10px;
+    padding-right: 1rem;
     padding-bottom: 10px;
     display: block;
     overflow: hidden;
@@ -272,30 +274,87 @@ header .topbar .topbar-right .systemname-logo {
     white-space: nowrap;
 }
 
-.sidebar-menu .p-menu .p-menuitem-link .p-menuitem-icon {
-    width: 30px;
-    color: var(--surface-0) !important;
-    margin-right: 0;
+.sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-header .p-accordion-header-link {
+    padding-right: 2.5rem;
 }
 
+.sidebar-menu .p-menu .p-menuitem-link .p-menuitem-icon {
+    width: 18px;
+    font-size: 18px;
+    color: var(--surface-0) !important;
+    margin-right: 12px;
+    text-align: center;
+    position: relative;
+    top: 1px;
+}
 .sidebar-menu .p-menu .p-menuitem-link .p-menuitem-text {
     color: var(--surface-0) !important;
 }
 
-.sidebar-menu .p-menu .p-menuitem-link:not(.p-disabled):hover,
-.sidebar-menu .p-menu .p-menuitem-link:active {
+.sidebar-menu .p-menu .p-submenu .p-menuitem-link .p-menuitem-text {
+    font-weight: $fontWeightExtralight;
+}
+
+.sidebar-menu .p-menu .p-menuitem-link.active {
     border-top-left-radius: 0;
-    border-top-right-radius: 50px;
+    border-top-right-radius: 7px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 50px;
+    border-bottom-right-radius: 7px;
 }
 
-.sidebar-menu .p-menu .p-menuitem-link:not(.p-disabled):hover {
-    background-color: rgba(0, 48, 113, 0.3);
+.sidebar-menu .p-menu .p-menuitem-link:not(.p-disabled):hover,
+.sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:hover {
+    background-color: var(--blue-600);
 }
 
-.sidebar-menu .p-menu .p-menuitem-link:focus {
+.sidebar-menu .p-menu .p-menuitem-link:focus,
+.sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-header .p-accordion-header-link {
     box-shadow: none;
+}
+
+.sidebar-menu .p-menu .p-menuitem-link.active {
+    color: var(--surface-0);
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    border-left: 0;
+}
+
+.sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-header .p-accordion-header-link {
+    font-weight: $fontWeightRegular;
+    background-color: transparent;
+    border: 0;
+}
+
+.sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-header .p-accordion-header-text::before {
+    width: 14px;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 400;
+    margin-right: 12px;
+    display: inline-block;
+}
+
+.sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .manage-document.p-accordion .p-accordion-header .p-accordion-header-text::before {
+    content: '\f07c';
+}
+
+.sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-header .p-accordion-header-link .p-accordion-toggle-icon {
+    margin-right: 13px;
+    position: absolute;
+    top: 14px;
+    right: 0;
+}
+
+.sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-content {
+    background-color: rgba(0, 48, 113, 0.5);
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+}
+
+.p-menu .p-menuitem-link i.menuitem-toggle-icon {
+    font-size: 80%;
+    margin-right: 0.8rem;
+    top: 17px;
 }
 
 footer {

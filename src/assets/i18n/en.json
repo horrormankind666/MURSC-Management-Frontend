@@ -2,8 +2,21 @@
     "systemName": {
         "label": "MURSC Management System"
     },
+    "menu": {
+        "manage": {
+            "user": {
+                "label": "Manage users"
+            },
+            "document": {
+                "label": "Manage document"
+            }
+        }
+    },
     "signin": {
-        "label": "Sign in"
+        "label": "Sign in",
+        "inValid": {
+            "label": "Please sign in."
+        }
     },
     "signout": {
         "label": "Sign out",
@@ -11,12 +24,10 @@
           "label": "Confirm your would like to sign out."
         }
     },
-    "menu": {
-        "manageUser": {
-          "label": "Manage users"
-        },
-        "manageReceipt": {
-          "label": "Manage receipts"
-        }
+    "receipt": {
+        "label": "receipt"
+    },
+    "close": {
+        "label": "Close"
     }
 }
