@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๓๐/๐๗/๒๕๖๔>
-Modify date : <๐๒/๐๘/๒๕๖๔>
+Modify date : <๐๔/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -21,7 +21,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
         </div>
         <div class="p-dialog-footer">
             <button pButton type="button" label="" class="p-button-rounded p-button-danger p-mr-0" (click)="close()">
-                <span>{{ 'close.label' | translate | titlecase }}</span>
+                <span>{{ (btnMsg ? btnMsg.close : 'close.label') | translate | titlecase }}</span>
             </button>
         </div>
     `,
@@ -29,6 +29,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class ModalErrorComponent implements OnInit {
     @Input() content: any;
+    @Input() btnMsg: any;
 
     constructor(
         private dialogConfig: DynamicDialogConfig,
@@ -37,6 +38,7 @@ export class ModalErrorComponent implements OnInit {
 
     ngOnInit(): void {
         this.content = this.dialogConfig.data.content;
+        this.btnMsg = this.dialogConfig.data.btnMsg;
     }
 
     close(): void {

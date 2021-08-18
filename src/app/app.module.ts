@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๐๓/๐๗/๒๕๖๔>
-Modify date : <๓๐/๐๗/๒๕๖๔>
+Modify date : <๐๕/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -21,7 +21,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
-import { CookieService } from 'ngx-cookie-service';
 
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
@@ -34,8 +33,6 @@ import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 
 import { appRouting } from './app-routing.module';
 import { environment } from '../environments/environment';
-
-import { AppService } from './app.service';
 
 import { AppComponent } from './app.component';
 import { ModalErrorComponent } from './modal/modal.component';
@@ -93,9 +90,7 @@ export function httpLoaderFactory(http: HttpClient) {
         TranslateModule
     ],
     providers: [
-        CookieService,
-        DialogService,
-        AppService
+        DialogService
     ],
     bootstrap: [
         AppComponent

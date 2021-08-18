@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๐๓/๐๗/๒๕๖๔>
-Modify date : <๓๐/๐๗/๒๕๖๔>
+Modify date : <๐๙/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -11,6 +11,8 @@ Description : <>
 
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { formatDate } from '@angular/common';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -18,13 +20,17 @@ import { MenuItem } from 'primeng/api';
 
 import { appRouting } from './app-routing.module';
 
+import { ModalService } from './modal/modal.service';
+
 @Injectable({
     providedIn: 'root'
 })
 export class AppService {
     constructor(
         private title: Title,
-        private translateService: TranslateService
+        private http: HttpClient,
+        private translateService: TranslateService,
+        private modalService: ModalService
     ) { }
 
     preload: any = {
@@ -37,6 +43,26 @@ export class AppService {
     lang: string = 'th';
     rootPath: string = '';
     cookieName: string = 'MURSC.Management.Cookies';
+    authenResource: any = {
+        type: '',
+        token: ''
+    };
+    hostname: any = {
+        local: 'localhost',
+        qas: '',
+        prd: ''
+    };
+    pathIsAuthenticated: string = ('/AuthroizedResource/ADFS/IsAuthenticated?ver=' + this.getDateTimeOnUrl());
+    pathAuthroizedResource: string = ('/AuthroizedResource/ADFS/UserInfo?ver=' + this.getDateTimeOnUrl);
+    pathAuthorization: string = ('/Authorization?ver=' + this.getDateTimeOnUrl());
+    pathAPI: string = '/API';
+    pathSignOut: string = ('/Authorization/ADFS/Authorize/SignOut?ver=' + this.getDateTimeOnUrl());
+    urlIsAuthenticated: string = '';
+    urlAuthroizedResource: string = '';
+    urlAuthorization: string = '';
+    urlAPI: string = '';
+    urlSignOut: string = '';
+
     menuItems: MenuItem[] = [
         {
             label: 'menu.manage.user.label' ,
@@ -61,17 +87,39 @@ export class AppService {
         }
     ];
 
-    generateRandAlphaNumStr(len: number = 10) {
-        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
-        let result: string = '';
+    async httpMethod(method: string, url: string, data: string, option: {}): Promise<any | undefined> {
+        try {
+            if (method === 'GET')
+                return await this.http.get(url, option).toPromise();
 
-        for (let i = 0; i < len; i++) {
-            const rnum = Math.floor(Math.random() * chars.length);
+            if (method === 'POST')
+                return await this.http.post(url, data, option).toPromise()
 
-            result += chars.substring(rnum, rnum + 1);
+            if (method === 'PUT')
+                return await this.http.put(url, data, option).toPromise()
+        } catch(error) {
+            console.log(error);
+
+            return undefined;
         }
+    }
 
-        return result;
+    setURLServer() {
+        let protocol: string = location.protocol;
+        let hostname: string = location.hostname;
+        let host: string = '';
+        let port: string = '';
+
+        if (hostname === this.hostname.local)
+          port = ':5000';
+
+        host = (protocol + "//" + hostname);
+
+        this.urlIsAuthenticated = (host + this.pathIsAuthenticated);
+        this.urlAuthroizedResource = (host + this.pathAuthroizedResource);
+        this.urlAuthorization = (host + this.pathAuthorization);
+        this.urlAPI = (host + port + this.pathAPI);
+        this.urlSignOut = (host + this.pathSignOut);
     }
 
     setDefaultLang(lang?: string): void {
@@ -120,16 +168,8 @@ export class AppService {
         return ('#' + ('000000' + color).slice(-6)).toUpperCase();
     }
 
-    getCUID(data: any = []): string {
-        let randAlphaNumStr: string = this.generateRandAlphaNumStr(20);
-
-        return (
-            btoa(
-                (btoa(randAlphaNumStr).split('').reverse().join('')) + '.' +
-                (randAlphaNumStr.split('').reverse().join('')) + '.' +
-                (btoa(data.join('.')).split('').reverse().join(''))
-            )
-        );
+    getDateTimeOnUrl(): string {
+        return formatDate(new Date(), 'dd/MM/yyyyHH:mm:ss', 'en');
     }
 
     getPermissionTable(): [] {
@@ -143,10 +183,53 @@ export class AppService {
 
     getIsPermission(permissionTable: any, userPermission: string | undefined): boolean {
         let isPermission: boolean = (permissionTable.filter((p: any) => p.includes(userPermission?.toLocaleUpperCase())).length > 0 ? true : false);
-        /*
+
         if (!isPermission)
-            this.modal.getModalError(false, 'permission.notHave.label');
-        */
+            this.modalService.getModalError(false, 'permission.notHave.label');
+
         return isPermission;
+    }
+
+    async getDataSource(routePrefix: string, action: string, query?: string): Promise<[] | undefined> {
+        try {
+            routePrefix = (routePrefix === undefined ? '' : routePrefix);
+            action = (action === undefined ? '' : action);
+            query = (query === undefined || query.length === 0 ? '' : query);
+
+            let url = (this.urlAPI + '/' + routePrefix + '/');
+            let route = '';
+            let option = {
+                headers: new HttpHeaders().set('Authorization', ('Bearer ' + this.authenResource.token))
+            };
+
+            switch (action) {
+                case 'getlist':
+                    route = 'GetList';
+                    break;
+                case 'get':
+                    route = 'Get';
+                    break;
+                default:
+                    route = action;
+                    break;
+            }
+
+            url += (route + '?ver=' + this.getDateTimeOnUrl() + query);
+
+            let result = await this.httpMethod('GET', url, '', option)
+
+            if (result !== undefined) {
+                let data = result['data'];
+
+                return (data !== undefined ? data : undefined);
+            }
+
+            return result;
+        }
+        catch (error) {
+            console.log(error);
+
+            return undefined;
+        }
     }
 }

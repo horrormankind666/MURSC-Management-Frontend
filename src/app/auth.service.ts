@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๐๖/๐๗/๒๕๖๔>
-Modify date : <๒๙/๐๗/๒๕๖๔>
+Modify date : <๐๙/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -12,15 +12,12 @@ Description : <>
 import { Injectable } from '@angular/core';
 
 import { AppService } from './app.service';
+import { Schema, DataService } from './data.service';
 
 interface UserInfo {
-    ID?: string,
-    ppid?: string,
-    email?: string,
-    givenName?: string,
-    familyName?: string,
-    winaccountName?: string,
+    CUID?: string,
     permission?: string,
+    email?: string,
     fullName?: {
         th?: string,
         en?: string
@@ -40,53 +37,38 @@ interface UserInfo {
 })
 export class AuthService {
     constructor(
-        private appService: AppService
+        private appService: AppService,
+        private dataService: DataService
     ) { }
 
-    private userInfo: UserInfo | undefined = {};
+    private userInfo: UserInfo | undefined;
 
     public isAuthenticated: boolean = false;
 
-    async setUserInfo(): Promise<boolean> {
+    async setUserInfo() {
+        this.userInfo = undefined;
+
         try {
-                let ppid: string = '6unbq648oglyxf90ds';
-                let givenName: string = 'Yutthaphoom';
-                let familyName: string = 'Tawana';
-                let winaccountName: string = 'yutthaphoom.taw';
-                /*
-                this.dataService.user.get(this.appService.getCUID([ppid]))
-                    .then((result: Schema.User) => {
-                        if (result && result.cancelStatus === 'N') {
-                            let ID: string = (result.ID ? result.ID : '');
-                            let email: string = (result.email ? result.email : '');
-                            let permission: string = (result.permission ? result.permission : '');
-                            let fullNameTH: string = (result.fullName.th ? result.fullName.th : '');
-                            let fullNameEN: string = (result.fullName.en ? result.fullName.en : '');
-                */
-                            this.userInfo = {
-                                ID: ID,
-                                ppid: ppid,
-                                email: email,
-                                permission: permission,
-                                givenName: givenName,
-                                familyName: familyName,
-                                winaccountName: winaccountName,
-                                fullName: {
-                                    th: (fullNameTH ? fullNameTH : fullNameEN),
-                                    en: (fullNameEN ? fullNameEN : fullNameTH)
-                                }
-                            };
-                /*
-                        }
-                        else
-                            this.userInfo = null;
-                */
-                return true;
+            let CUID: string = '';
+            let result: Schema.User | undefined = await this.dataService.user.get(CUID);
+
+            if (result !== undefined) {
+                if (result && result.cancelStatus === 'N') {
+                    let permission: string = (result.permission ? result.permission : '');
+                    let email: string = (result.email ? result.email : '');
+                    let fullName: {} = (result.fullName ? result.fullName : {});
+
+                    this.userInfo = {
+                        CUID: CUID,
+                        permission: permission,
+                        email: email,
+                        fullName: fullName
+                    }
+                }
+            }
         }
         catch(error) {
-            this.userInfo = undefined;
-
-            return false;
+            console.log(error);
         }
     }
 
@@ -96,17 +78,20 @@ export class AuthService {
 
     getIsAuthenticated(): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            resolve(true);
+            resolve(false);
         });
     }
 
     async getAuthenResource(): Promise<UserInfo | undefined> {
         try {
-            if (!this.getUserInfo) {
+            if (this.getUserInfo === undefined) {
                 await  this.setUserInfo();
-                //.then(() => {
-                this.isAuthenticated = (this.getUserInfo ? true : false);
 
+                console.log(this.getUserInfo);
+
+                /*.then(() => {
+                this.isAuthenticated = (this.getUserInfo ? true : false);
+                */
                 return this.getUserInfo;
 
             /*
@@ -147,6 +132,8 @@ export class AuthService {
             }
         }
         catch(error) {
+            console.log(error);
+
             return undefined;
         }
     }

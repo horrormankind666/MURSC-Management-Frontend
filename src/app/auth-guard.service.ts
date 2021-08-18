@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๒๙/๐๗/๒๕๖๔>
-Modify date : <๐๒/๐๘/๒๕๖๔>
+Modify date : <๐๕/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -44,7 +44,7 @@ export class AuthGuardService implements CanActivate {
                 }
 
                 if (route.data.signin) {
-                    this.modalService.getModalError();
+                    this.modalService.getModalError(false, 'signin.inValid.label');
 
                     return false;
                 }
@@ -53,7 +53,9 @@ export class AuthGuardService implements CanActivate {
             return true;
         }
         catch(error) {
-          return false;
+            console.log(error);
+
+            return false;
         }
     }
 }

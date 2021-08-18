@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๐๓/๐๗/๒๕๖๔>
-Modify date : <๐๒/๐๘/๒๕๖๔>
+Modify date : <๐๕/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -73,6 +73,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     activeState: boolean[] = [false];
 
     ngOnInit(): void {
+        this.appService.setURLServer();
         this.appService.lang = 'th';
         this.appService.setDefaultLang();
 

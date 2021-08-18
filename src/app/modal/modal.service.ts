@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๓๐/๐๗/๒๕๖๔>
-Modify date : <๐๒/๐๘/๒๕๖๔>
+Modify date : <๐๔/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -15,6 +15,12 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { ModalErrorComponent } from './modal.component';
 
+export interface BtnMsg {
+    ok?: string,
+    cancel?: string,
+    close?: string
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,22 +31,34 @@ export class ModalService {
 
     modalCount: number = 0;
 
-    getModalError(): void {
+    private getModal(checkHasOpenModal: boolean, component: any, styleClass: string, content?: string, description?: string, btnMsg?: BtnMsg): DynamicDialogRef | undefined {
         let ref: DynamicDialogRef | undefined;
 
-        if (this.modalCount === 0) {
+        if (!checkHasOpenModal || this.modalCount === 0) {
             this.modalCount++;
 
-            ref = this.dialogService.open(ModalErrorComponent, {
-                styleClass: 'modal-error',
+            ref = this.dialogService.open(component, {
+                styleClass: styleClass,
                 data: {
-                    content: 'signin.inValid.label'
+                    content: content,
+                    btnMsg: btnMsg
                 }
             });
         }
 
+        return ref;
+    }
+
+
+    getModalError(checkHasOpenModal: boolean, content: string, btnMsg?: string): DynamicDialogRef | undefined {
+        let ref: DynamicDialogRef | undefined;
+
+        ref = this.getModal(checkHasOpenModal, ModalErrorComponent, 'modal-error', content);
+
         ref?.onClose.subscribe(() => {
             this.modalCount--;
         });
+
+        return ref;
     }
 }

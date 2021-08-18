@@ -24,6 +24,12 @@
           "label": "Confirm your would like to sign out."
         }
     },
+	"permission": {
+        "label": "Permission",
+        "notHave": {
+            "label": "You do not have permission to access it."
+        }
+    },
     "receipt": {
         "label": "receipt"
     },
