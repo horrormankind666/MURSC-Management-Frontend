@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๐๓/๐๗/๒๕๖๔>
-Modify date : <๐๑/๐๘/๒๕๖๔>
+Modify date : <๒๓/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -105,8 +105,9 @@ body:not(.mobile).opera.p-overflow-hidden footer .footer .muit-logo {
     right: 0;
 }
 
+.backdrop,
 .p-dialog-mask {
-    z-index: 10050 !important;
+    z-index: 10051 !important;
 }
 
 .p-dialog-mask.p-component-overlay {
@@ -122,12 +123,19 @@ body:not(.mobile).opera.p-overflow-hidden footer .footer .muit-logo {
 }
 
 .p-dialog .p-dialog-content {
+    font-size: $fontSize18;
     width: 100%;
     height: 100%;
     background-color: transparent !important;
     border-radius: 0;
     padding: 1rem 0 91px 0 !important;
     overflow: hidden;
+}
+
+.p-dialog .p-dialog-content .description {
+    font-size: $fontSize16;
+    color: var(--surface-800);
+    margin-top: 0.5rem;
 }
 
 .p-dialog .p-dialog-header,
@@ -168,7 +176,7 @@ body:not(.mobile).opera.p-overflow-hidden footer .footer .muit-logo {
 }
 
 .p-dialog .p-dialog-footer .p-button {
-    width: 100px;
+    min-width: 100px;
 }
 
 .modal-error.p-dialog .p-dialog-header {
@@ -286,7 +294,7 @@ body:not(.mobile).opera.p-overflow-hidden footer .footer .muit-logo {
     text-align: center;
     margin-top: 35px;
     position: fixed;
-    z-index: 2000;
+    z-index: 10051;
     top: 50%;
     right: 0;
     left: 0;

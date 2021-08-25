@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๐๓/๐๗/๒๕๖๔>
-Modify date : <๐๕/๐๘/๒๕๖๔>
+Modify date : <๒๔/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -47,8 +47,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.router.events.subscribe((event: Event) => {
             switch (true) {
                 case event instanceof NavigationStart:
-                    if (this.modalService.modalCount > 0)
-                        this.dialogRef.close();
+                    this.modalService.closeAllModal();
 
                     appService.preload.isShow = true;
                     appService.preload.isPage = true;
@@ -59,6 +58,15 @@ export class AppComponent implements OnInit, AfterViewInit {
                     setTimeout(() => {
                         appService.preload.isShow = false;
                         appService.preload.isPage = false;
+
+                        this.userBackgrondColor = this.appService.getRandomColor();
+
+                        if (this.appService.authenInfo.isAuthenticated)
+                            this.setActiveSidebarMenu(true);
+                        else
+                            this.isActiveSidebarMenu = false;
+
+                        this.setFooterlayout();
                     }, 0);
                     break;
                 default:
@@ -69,18 +77,17 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     userBackgrondColor: string = '';
     today: Date = new Date();
-    isActiveSidebarMenu: boolean = true;
+    isActiveSidebarMenu: boolean = false;
     activeState: boolean[] = [false];
 
     ngOnInit(): void {
+        /*
+        this.appService.setBearerToken();
+        */
+
         this.appService.setURLServer();
         this.appService.lang = 'th';
         this.appService.setDefaultLang();
-
-        this.userBackgrondColor = this.appService.getRandomColor();
-
-        this.setActiveSidebarMenu(true);
-        this.setFooterlayout();
     }
 
     ngAfterViewInit(): void {

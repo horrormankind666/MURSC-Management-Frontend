@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๐๓/๐๗/๒๕๖๔>
-Modify date : <๒๙/๐๗/๒๕๖๔>
+Modify date : <๒๔/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -223,7 +223,7 @@ header .topbar .topbar-right .systemname-logo {
 .sidebar-menu {
     width: $sidebarMaxWidth;
     height: 100%;
-    background: $colorMU;
+    background-color: $colorMU;
     padding-top: $headerMaxHeight;
     overflow: hidden;
     position: fixed;
@@ -268,6 +268,7 @@ header .topbar .topbar-right .systemname-logo {
     padding-top: 10px;
     padding-right: 1rem;
     padding-bottom: 10px;
+    padding-left: 16px;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -291,20 +292,19 @@ header .topbar .topbar-right .systemname-logo {
     color: var(--surface-0) !important;
 }
 
-.sidebar-menu .p-menu .p-submenu .p-menuitem-link .p-menuitem-text {
-    font-weight: $fontWeightExtralight;
-}
-
+.sidebar-menu .p-menu .p-menuitem-link:not(.p-disabled):hover,
+.sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:hover,
 .sidebar-menu .p-menu .p-menuitem-link.active {
-    border-top-left-radius: 0;
-    border-top-right-radius: 7px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 7px;
+    background-color: var(--blue-600);
+    border-left: 5px solid var(--surface-0);
+    border-radius: 0;
+    padding-left: 11px;
 }
 
 .sidebar-menu .p-menu .p-menuitem-link:not(.p-disabled):hover,
 .sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:hover {
-    background-color: var(--blue-600);
+    background-color: rgba(28, 128, 207, 0.5);
+    border-left: 5px solid rgba(255, 255, 255, 0.5);
 }
 
 .sidebar-menu .p-menu .p-menuitem-link:focus,
@@ -312,11 +312,9 @@ header .topbar .topbar-right .systemname-logo {
     box-shadow: none;
 }
 
-.sidebar-menu .p-menu .p-menuitem-link.active {
-    color: var(--surface-0);
-    background: transparent;
-    border: 1px solid var(--primary-color);
-    border-left: 0;
+.sidebar-menu .p-menu .p-menuitem-link.active .p-menuitem-icon,
+.sidebar-menu .p-menu .p-menuitem-link.active .p-menuitem-text {
+    color: #000000 !important;
 }
 
 .sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-header .p-accordion-header-link {
@@ -345,7 +343,7 @@ header .topbar .topbar-right .systemname-logo {
 }
 
 .sidebar-menu .p-menu .p-submenu p-accordion ::ng-deep .p-accordion .p-accordion-content {
-    background-color: rgba(0, 48, 113, 0.5);
+    background-color: var(--blue-900);
     border: 0;
     border-radius: 0;
     padding: 0;

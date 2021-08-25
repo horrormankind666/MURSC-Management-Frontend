@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๓๐/๐๗/๒๕๖๔>
-Modify date : <๐๔/๐๘/๒๕๖๔>
+Modify date : <๒๕/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -29,36 +29,39 @@ export class ModalService {
         private dialogService: DialogService
     ) { }
 
-    modalCount: number = 0;
+    openDialogRef: DynamicDialogRef[] = [];
 
     private getModal(checkHasOpenModal: boolean, component: any, styleClass: string, content?: string, description?: string, btnMsg?: BtnMsg): DynamicDialogRef | undefined {
-        let ref: DynamicDialogRef | undefined;
+        let dialogRef: DynamicDialogRef | undefined;
 
-        if (!checkHasOpenModal || this.modalCount === 0) {
-            this.modalCount++;
-
-            ref = this.dialogService.open(component, {
-                styleClass: styleClass,
+        if (!checkHasOpenModal || this.openDialogRef.length === 0) {
+            dialogRef = this.dialogService.open(component, {
                 data: {
                     content: content,
+                    description: description,
                     btnMsg: btnMsg
-                }
+                },
+                closeOnEscape: false,
+                styleClass: styleClass,
             });
+
+            this.openDialogRef.push(dialogRef);
         }
 
-        return ref;
+        return dialogRef;
     }
 
 
-    getModalError(checkHasOpenModal: boolean, content: string, btnMsg?: string): DynamicDialogRef | undefined {
-        let ref: DynamicDialogRef | undefined;
+    getModalError(checkHasOpenModal: boolean, content: string, description?: string, btnMsg?: BtnMsg): DynamicDialogRef | undefined {
+        let dialogRef: DynamicDialogRef | undefined;
 
-        ref = this.getModal(checkHasOpenModal, ModalErrorComponent, 'modal-error', content);
+        dialogRef = this.getModal(checkHasOpenModal, ModalErrorComponent, 'modal-error', content, description, btnMsg);
 
-        ref?.onClose.subscribe(() => {
-            this.modalCount--;
-        });
+        return dialogRef;
+    }
 
-        return ref;
+    closeAllModal() {
+        this.openDialogRef.forEach((dialogRef: DynamicDialogRef) => dialogRef.destroy());
+        this.openDialogRef = [];
     }
 }

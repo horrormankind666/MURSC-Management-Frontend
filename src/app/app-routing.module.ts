@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๐๓/๐๗/๒๕๖๔>
-Modify date : <๓๐/๐๗/๒๕๖๔>
+Modify date : <๒๕/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -12,22 +12,29 @@ Description : <>
 import { Routes } from '@angular/router';
 
 import { AuthGuardService } from './auth-guard.service';
-import { AuthenADFSResolve, IsPermissionResolve, MenuByPermissionResolve } from './app-routing-resolve.service';
+import { AuthenADFSResolve, MenuByRoleResolve } from './app-routing-resolve.service';
 
 import { PageEmptyComponent } from './page-empty.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 
 export const appRouting: Routes = [
     {
+        path: 'SignIn',
+        component: PageEmptyComponent,
+        resolve: {
+            AuthenADFSResolve,
+        }
+    },
+    {
         path: 'Home',
         component: PageEmptyComponent,
         canActivate: [AuthGuardService],
         data: {
             signin: true,
-            permission: ['ADMIN']
+            role: ['*']
         },
         resolve: {
-            MenuByPermissionResolve
+            MenuByRoleResolve
         }
     },
     {
@@ -36,11 +43,10 @@ export const appRouting: Routes = [
         canActivate: [AuthGuardService],
         data: {
             signin: true,
-            permission: ['ADMIN']
+            role: ['ADMIN']
         },
         resolve: {
-            isPermission: IsPermissionResolve,
-            MenuByPermissionResolve
+            MenuByRoleResolve
         }
     },
     {
@@ -48,7 +54,7 @@ export const appRouting: Routes = [
         component: PageEmptyComponent,
         data: {
             signin: true,
-            permission: ['ADMIN']
+            role: ['ADMIN']
         }
     },
     {
@@ -57,11 +63,10 @@ export const appRouting: Routes = [
         canActivate: [AuthGuardService],
         data: {
             signin: true,
-            permission: ['ADMIN']
+            role: ['ADMIN']
         },
         resolve: {
-            isPermission: IsPermissionResolve,
-            MenuByPermissionResolve
+            MenuByRoleResolve
         }
     },
     {
@@ -74,10 +79,21 @@ export const appRouting: Routes = [
         component: PageNotFoundComponent,
         canActivate: [AuthGuardService],
         data: {
-            permission: ['ADMIN']
+            role: ['*']
         },
         resolve: {
-            MenuByPermissionResolve
+            MenuByRoleResolve
         }
-    }
+    },
+    {
+        path: '404',
+        component: PageEmptyComponent,
+        canActivate: [AuthGuardService],
+        data: {
+            role: ['*']
+        },
+        resolve: {
+            MenuByRoleResolve
+        }
+    },
 ];

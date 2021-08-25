@@ -12,10 +12,32 @@
             }
         }
     },
+    "error": {
+        "unauthorized": {
+            "label": "ไม่พบการเข้าระบบ"
+        },
+        "token": {
+            "invalid": {
+                "label": "Token ไม่ถูกต้อง"
+            },
+            "expired": {
+                "label": "Token หมดอายุ"
+            }
+        },
+        "databaseConnectionFail": {
+            "label": "การเชื่อมต่อฐานข้อมูลล้มเหลว"
+        },
+        "userNotFound": {
+            "label": "ไม่พบผู้ใช้งาน"
+        }
+    },
     "signin": {
         "label": "เข้าสู่ระบบ",
-        "inValid": {
-            "label": "กรุณาเข้าระบบ"
+        "please": {
+            "label": "กรุณาเข้าระบบ",
+            "again": {
+                "label": "กรุณาเข้าระบบอีกครั้ง"
+            }
         }
     },
     "signout": {
@@ -24,10 +46,10 @@
           "label": "ยืนยันต้องการออกจากระบบ"
         }
     },
-    "permission": {
+    "role": {
         "label": "สิทธิ์ใช้งาน",
         "notHave": {
-            "label": "ไม่พบสิทธิ์ของผู้ใช้งาน"
+            "label": "ผู้ใช้งานไม่มีสิทธิ์เข้าถึง"
         }
     },
     "receipt": {

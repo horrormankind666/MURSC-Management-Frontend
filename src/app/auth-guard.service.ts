@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๒๙/๐๗/๒๕๖๔>
-Modify date : <๐๕/๐๘/๒๕๖๔>
+Modify date : <๒๕/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -10,20 +10,20 @@ Description : <>
 'use strict';
 
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 
-import { CookieService } from 'ngx-cookie-service';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { AppService } from './app.service';
 import { AuthService } from './auth.service';
-import { ModalService } from './modal/modal.service';
+import { ModalService, BtnMsg } from './modal/modal.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
     constructor(
-        private cookieService: CookieService,
+        private router: Router,
         private appService: AppService,
         private authService: AuthService,
         private modalService: ModalService
@@ -31,26 +31,36 @@ export class AuthGuardService implements CanActivate {
 
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
         try {
-            let url: string = state.url;
-            let urlArray: string[] = url.split('/');
+            this.appService.rootPath = state.url.substr(1);
 
-            this.appService.rootPath = (urlArray[1] + (urlArray[2] ? ('/' + urlArray[2]) : ''));
-            await this.authService.getAuthenResource();
-
-            if (!this.authService.isAuthenticated) {
-                if (this.cookieService.check(this.appService.cookieName)) {
-                    this.cookieService.delete(this.appService.cookieName);
-                    document.cookie = (this.appService.cookieName + '=; Max-Age=-99999999;');
-                }
+            await this.authService.getAuthenInfo(route);
+            console.log(this.appService.authenInfo);
+            if (!this.appService.authenInfo.isAuthenticated) {
+                localStorage.removeItem(this.appService.localStorageKey.bearerToken);
 
                 if (route.data.signin) {
-                    this.modalService.getModalError(false, 'signin.inValid.label');
+                    let btnMsg: BtnMsg = {
+                        close: 'signin.please.label'
+                    };
 
-                    return false;
+                    let messageError: string | null = this.appService.getMessageError(this.appService.authenInfo.message);
+
+                    if (messageError !== null) {
+                        let dialogRef: DynamicDialogRef | undefined = this.modalService.getModalError(false, messageError, '', btnMsg);
+
+                        dialogRef?.onDestroy.subscribe(() => {
+                        });
+                    }
                 }
-            }
 
-            return true;
+                return false;
+            }
+            else {
+                if (!this.appService.authenInfo.isRole && this.appService.rootPath !== '404')
+                    this.router.navigate(['404']);
+
+                return true;
+            }
         }
         catch(error) {
             console.log(error);

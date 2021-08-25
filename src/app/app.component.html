@@ -24,20 +24,26 @@
                     </i>
                 </button>
                 <div class="systemname-logo" [class]="appService.lang"></div>
-                <ul class="topbar-items">
+                <ul class="topbar-items" *ngIf="appService.authenInfo.isAuthenticated">
                     <li>
-                        <button pButton type="button" label="" class="signin-btn p-button-outlined p-button-secondary"  *ngIf="!authService.isAuthenticated">
+                        <button pButton type="button" label="" class="signin-btn p-button-outlined p-button-secondary"  *ngIf="!appService.authenInfo.isAuthenticated">
                             <span>{{ 'signin.label' | translate | titlecase }}</span>
                         </button>
-                        <div class="user-info" *ngIf="authService.isAuthenticated">
-                            <p-avatar label="YT" shape="circle" [style]="{ 'background-color': userBackgrondColor }" styleClass="user-avatar" (click)="profile.toggle($event)"></p-avatar>
+                        <div class="user-info" *ngIf="appService.authenInfo.isAuthenticated">
+                            <p-avatar
+                                label="{{ authService.getUserInfo !== null ? ((authService.getUserInfo.givenName !== undefined ? (authService.getUserInfo.givenName[0] | uppercase) : '') + (authService.getUserInfo.familyName !== undefined ? (authService.getUserInfo.familyName[0] | uppercase) : '')) : '' }}"
+                                shape="circle"
+                                [style]="{ 'background-color': userBackgrondColor }"
+                                styleClass="user-avatar"
+                                (click)="profile.toggle($event)">
+                            </p-avatar>
                             <p-overlayPanel #profile class="p-text-center" [showCloseIcon]="false">
                                 <ng-template pTemplate>
                                     <div class="p-p-3">
                                         <p-avatar label="YT" shape="circle" [style]="{ 'background-color': userBackgrondColor }"></p-avatar>
                                         <div class="p-d-block p-mt-2">
-                                            <div class="p-text-truncate p-text-normal text-white text-size-18">ยุทธภูมิ ตวันนา</div>
-                                            <div class="p-text-truncate p-text-light p-mt-1 text-white text-size-16">yutthaphoom.taw@mahidol.ac.th</div>
+                                            <div class="p-text-truncate p-text-normal text-white text-size-18">{{ authService.getUserInfo !== null ? (authService.getUserInfo.fullName[appService.lang] | titlecase) : '' }}</div>
+                                            <div class="p-text-truncate p-text-light p-mt-1 text-white text-size-16">{{ authService.getUserInfo !== null ? (authService.getUserInfo.email | lowercase) : '' }}</div>
                                         </div>
                                     </div>
                                     <p-divider></p-divider>
@@ -72,7 +78,11 @@
                             'p-submenu': item.items,
                             'p-hidden': !item.visible
                         }">
-                        <a class="p-menuitem-link" role="menuitem" tabindex="0" *ngIf="!item.items">
+                        <a routerLink="{{ item.routerLink }}" class="p-menuitem-link" role="menuitem" tabindex="0"
+                            *ngIf="!item.items"
+                            [ngClass]="{
+                                'active': (appService.rootPath === item.routerLink && !appService.preload.isShow && !appService.preload.isPage)
+                            }">
                             <span class="p-menuitem-icon {{ item.icon }}"></span>
                             <span class="p-menuitem-text">{{ (item.label + '') | translate | titlecase }}</span>
                         </a>
@@ -83,7 +93,10 @@
                                         [ngClass]="{
                                             'p-hidden': !subitem.visible
                                         }">
-                                        <a class="p-menuitem-link" role="menuitem" tabindex="0">
+                                        <a routerLink="{{ subitem.routerLink }}" class="p-menuitem-link" role="menuitem" tabindex="0"
+                                            [ngClass]="{
+                                                'active': (appService.rootPath === subitem.routerLink && !appService.preload.isShow && !appService.preload.isPage)
+                                            }">
                                             <span class="p-menuitem-icon {{ subitem.icon }}"></span>
                                             <span class="p-menuitem-text">{{ (subitem.label + '') | translate | titlecase }}</span>
                                         </a>

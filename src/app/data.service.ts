@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๐๕/๐๘/๒๕๖๔>
-Modify date : <๐๕/๐๘/๒๕๖๔>
+Modify date : <๒๔/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -14,14 +14,27 @@ import { Injectable } from '@angular/core';
 import { AppService } from './app.service';
 
 export namespace Schema {
+    export interface BearerTokenInfo {
+        CUID: string,
+        token: string
+    }
+
+    export interface RoleInfo {
+        name: string,
+        description: string,
+        cancelStatus: string
+    }
+
     export interface User {
         CUID?: string,
         ID?: string,
+        role?: RoleInfo,
         HRiID?: string,
         username?: string,
-        permission?: string,
         ownerCode?: string,
-        fullName?: {},
+        fullName?: any,
+        givenName?: string,
+        familyName?: string,
         email?: string,
         image?: string,
         cancelStatus?: string,
@@ -30,34 +43,34 @@ export namespace Schema {
 }
 
 namespace Instance {
-    export class User {
+    export class AuthorizationUsers {
         constructor(
             private appService: AppService
         ) { }
 
-        async getList(): Promise<Schema.User[] | undefined> {
+        async getList(showError?: boolean): Promise<Schema.User[] | null> {
             try {
-                let result: Schema.User[] | undefined = await this.appService.getDataSource('User', 'getlist');
+                let result: Schema.User[] | null = await this.appService.getDataSource('AuthorizationUsers', 'getlist', '', showError);
 
                 return result;
             }
             catch (error) {
                 console.log(error);
 
-                return undefined;
+                return null;
             }
         }
 
-        async get(cuid: string): Promise<Schema.User | undefined> {
+        async get(cuid?: string, showError?: boolean): Promise<Schema.User | null> {
             let query = [
                 '',
-                ('cuid=' + cuid)
-            ].join('&');
+                cuid
+            ].join('/');
 
             try {
-                let result: Schema.User[] | undefined  = await this.appService.getDataSource('User', 'get', query);
+                let result: Schema.User[] | null  = await this.appService.getDataSource('AuthorizationUsers', 'get', query, showError);
 
-                if (result !== undefined)
+                if (result !== null)
                     return result[0];
 
                 return result;
@@ -66,7 +79,7 @@ namespace Instance {
             catch (error) {
                 console.log(error);
 
-                return undefined;
+                return null;
             }
         }
     }
@@ -80,5 +93,5 @@ export class DataService {
         private appService: AppService
     ) { }
 
-    user = new Instance.User(this.appService);
+    athorizationUsers = new Instance.AuthorizationUsers(this.appService);
 }

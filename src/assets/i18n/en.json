@@ -12,10 +12,32 @@
             }
         }
     },
+    "error": {
+        "unauthorized": {
+            "label": "Unauthorized."
+        },
+        "token": {
+            "invalid": {
+                "label": "Token invalid."
+            },
+            "expired": {
+                "label": "Token expired."
+            }
+        },
+        "databaseConnectionFail": {
+            "label": "Database Connection Fail."
+        },
+        "userNotFound": {
+            "label": "User not found."
+        }
+    },
     "signin": {
         "label": "Sign in",
-        "inValid": {
-            "label": "Please sign in."
+        "please": {
+            "label": "Please sign in.",
+            "again": {
+                "label": "Please sign in again."
+            }
         }
     },
     "signout": {
@@ -24,10 +46,10 @@
           "label": "Confirm your would like to sign out."
         }
     },
-	"permission": {
-        "label": "Permission",
+	"role": {
+        "label": "Role",
         "notHave": {
-            "label": "You do not have permission to access it."
+            "label": "The user does not have access."
         }
     },
     "receipt": {

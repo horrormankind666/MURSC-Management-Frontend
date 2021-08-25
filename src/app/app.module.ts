@@ -20,6 +20,8 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { JwtModule } from '@auth0/angular-jwt';
+
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 
 import { ButtonModule } from 'primeng/button';
@@ -69,12 +71,19 @@ export function httpLoaderFactory(http: HttpClient) {
               deps: [HttpClient]
             }
         }),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: () => {
+                    return localStorage.getItem("access_token");
+                }
+            }
+        }),
         NgxLoadingModule.forRoot({
             backdropBackgroundColour: 'rgba(0, 0, 0, 0.4)',
             fullScreenBackdrop: true,
             animationType: ngxLoadingAnimationTypes.cubeGrid,
             primaryColour: '#DD0031',
-            backdropBorderRadius: '3px'
+            backdropBorderRadius: '3px',
         }),
         ButtonModule,
         AvatarModule,
