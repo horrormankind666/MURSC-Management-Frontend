@@ -2,7 +2,7 @@
 =============================================
 Author      : <ยุทธภูมิ ตวันนา>
 Create date : <๐๓/๐๗/๒๕๖๔>
-Modify date : <๐๕/๐๘/๒๕๖๔>
+Modify date : <๒๕/๐๘/๒๕๖๔>
 Description : <>
 =============================================
 */
@@ -40,6 +40,7 @@ import { AppComponent } from './app.component';
 import { ModalErrorComponent } from './modal/modal.component';
 import { PageEmptyComponent } from './page-empty.component';
 import { PageNotFoundComponent } from './page-not-found.component';
+import { ManageUserComponent } from './manage/user/manage-user.component';
 
 export function httpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -50,7 +51,8 @@ export function httpLoaderFactory(http: HttpClient) {
         AppComponent,
         ModalErrorComponent,
         PageEmptyComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        ManageUserComponent
     ],
     imports: [
         BrowserModule,

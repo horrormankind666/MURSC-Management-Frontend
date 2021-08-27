@@ -5,7 +5,10 @@
     "menu": {
         "manage": {
             "user": {
-                "label": "Manage users"
+                "label": "Manage users",
+                "add": {
+                    "label": "Add new user"
+                }
             },
             "document": {
                 "label": "Manage document"

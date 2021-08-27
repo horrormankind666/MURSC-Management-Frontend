@@ -81,9 +81,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     activeState: boolean[] = [false];
 
     ngOnInit(): void {
-        /*
         this.appService.setBearerToken();
-        */
 
         this.appService.setURLServer();
         this.appService.lang = 'th';

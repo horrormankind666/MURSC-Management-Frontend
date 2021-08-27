@@ -16,6 +16,7 @@ import { AuthenADFSResolve, MenuByRoleResolve } from './app-routing-resolve.serv
 
 import { PageEmptyComponent } from './page-empty.component';
 import { PageNotFoundComponent } from './page-not-found.component';
+import { ManageUserComponent } from './manage/user/manage-user.component';
 
 export const appRouting: Routes = [
     {
@@ -39,7 +40,7 @@ export const appRouting: Routes = [
     },
     {
         path: 'Manage/User',
-        component: PageEmptyComponent,
+        component: ManageUserComponent,
         canActivate: [AuthGuardService],
         data: {
             signin: true,
